@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACCG2051 Cram — Business Law Test 2</title>
+<style>
+:root{--bg:#0e1116;--panel:#171c24;--panel2:#1e2530;--ink:#e9edf3;--mut:#9aa6b6;--line:#2a323f;--accent:#6366f1;--accent2:#818cf8;--good:#2ec27e;--bad:#e5484d;--warn:#f0a830;--chip:#222b38}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;z-index:30;background:rgba(14,17,22,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{max-width:920px;margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:17px}.logo span{color:var(--accent2)}
+.cd{margin-left:auto;font-size:12.5px;color:var(--mut);background:var(--chip);padding:5px 11px;border-radius:99px;border:1px solid var(--line)}
+.cd b{color:var(--warn)}
+nav{max-width:920px;margin:0 auto;padding:0 18px 10px;display:flex;gap:6px;flex-wrap:wrap}
+.tab{background:transparent;border:1px solid var(--line);color:var(--mut);padding:7px 13px;border-radius:9px;cursor:pointer;font-size:13.5px;font-weight:600}
+.tab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+main{max-width:920px;margin:0 auto;padding:22px 18px 90px}
+.view{display:none;animation:f .25s}.view.on{display:block}@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+h1{font-size:25px;margin:0 0 4px}h2{font-size:19px;margin:26px 0 10px}
+.sub{color:var(--mut);margin-top:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 12px}
+.pill{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--mut);border:1px solid var(--line)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.area-pick{cursor:pointer;transition:.15s}.area-pick:hover{border-color:var(--accent)}
+.acc h3{cursor:pointer;margin:0;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;font-size:15.5px}
+.acc .body{padding:0 16px 14px;display:none}.acc.open .body{display:block}
+.acc .body ul{margin:4px 0;padding-left:18px}.acc .body li{margin:4px 0}
+.acc .arw{color:var(--mut);transition:.2s}.acc.open .arw{transform:rotate(180deg)}
+b.case{color:var(--accent2)}
+.sel{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.fchip{font-size:12px;padding:5px 11px;border-radius:99px;border:1px solid var(--line);background:var(--chip);color:var(--mut);cursor:pointer;font-weight:600}
+.fchip.on{background:var(--accent2);border-color:var(--accent2);color:#10131a}
+/* flashcards */
+.fc-wrap{max-width:560px;margin:0 auto}
+.flip{perspective:1400px;height:300px;margin:8px 0;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip.flipped .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--panel)}
+.face.back{transform:rotateY(180deg);background:var(--panel2);border-color:var(--accent)}
+.face .lab{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:8px}
+.face .txt{font-size:18px}.face.back .txt{font-size:16px}
+.row{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap;justify-content:center}
+.btn{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--accent2)}.btn.g{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.good{background:var(--good)}.btn.bad{background:var(--bad)}
+.meta{display:flex;justify-content:space-between;color:var(--mut);font-size:13px;margin-top:8px}
+.prog{height:7px;background:var(--panel2);border-radius:99px;overflow:hidden;margin:8px 0}
+.prog>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:.3s}
+/* quiz */
+.opt{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--ink);padding:12px 14px;border-radius:11px;margin:7px 0;cursor:pointer;font-size:15px}
+.opt:hover{border-color:#3a4453}.opt .l{font-weight:700;color:var(--mut);margin-right:8px}
+.opt.correct{border-color:var(--good);background:rgba(46,194,126,.12)}
+.opt.wrong{border-color:var(--bad);background:rgba(229,72,77,.12)}
+.opt.dis{cursor:default;opacity:.9}
+.explain{margin-top:12px;padding:12px;border-radius:11px;background:var(--panel2);border-left:3px solid var(--accent);font-size:14px;display:none}
+.explain.show{display:block}
+.qx{font-size:17px;font-weight:600;margin:6px 0 14px}
+.res{text-align:center;padding:26px}.res .big{font-size:50px;font-weight:800;margin:6px 0}
+details{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:10px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:700;color:var(--accent2)}
+.irac{font-size:14.5px}.irac p{margin:7px 0}.irac .k{color:var(--accent2);font-weight:700}
+kbd{background:var(--chip);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:11px}
+.note{background:rgba(240,168,48,.08);border:1px solid rgba(240,168,48,.3);border-radius:11px;padding:11px 14px;font-size:13.5px;margin:10px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar"><div class="logo">ACCG2051 <span>Cram</span> · Business Law</div><div class="cd" id="cd">Test 2 tomorrow ⚡</div></div>
+  <nav id="nav">
+    <button class="tab on" data-v="home">Overview</button>
+    <button class="tab" data-v="notes">Notes</button>
+    <button class="tab" data-v="cards">Flashcards</button>
+    <button class="tab" data-v="quiz">Quiz</button>
+    <button class="tab" data-v="prob">Problem (IRAC)</button>
+  </nav>
+</header>
+<main>
+<!-- HOME -->
+<section class="view on" id="home">
+  <h1>Test 2 — your closed-book cram</h1>
+  <p class="sub">10 short questions (T/F · multiple choice · fill-in, from the lectures) + one 10-mark problem question (from the tutorials). 40 min, closed book, 30% of the unit. Covers Lecture Areas 4–12.</p>
+  <div class="note">⚠️ <b>Lecture Area 8 is missing</b> from your uploaded files — if it's examinable, grab it and send it over and I'll add it.</div>
+  <h2>The 8 areas</h2>
+  <div class="grid" id="areaGrid"></div>
+  <h2>How to use this tonight</h2>
+  <div class="card">
+    <p><b>1. Notes</b> — skim each area once to refresh the rules, sections &amp; cases.</p>
+    <p><b>2. Flashcards</b> — actively recall the definitions, sections and cases. Rate yourself honestly.</p>
+    <p><b>3. Quiz</b> — test yourself in the real T/F + MC format; read every explanation.</p>
+    <p><b>4. Problem (IRAC)</b> — learn the structure + 3 worked model answers for the 10-marker.</p>
+    <p class="sub" style="margin-top:8px">Tip: sections (s###) and case names are the most-tested things in this unit. The flashcards drill exactly those.</p>
+  </div>
+</section>
+<!-- NOTES -->
+<section class="view" id="notes">
+  <h1>Notes</h1><p class="sub">Tap an area to expand. The key rules, sections and cases for each.</p>
+  <div id="notesWrap"></div>
+</section>
+<!-- FLASHCARDS -->
+<section class="view" id="cards">
+  <h1>Flashcards</h1><p class="sub">Tap the card to flip. Be honest — “Got it” removes it, “Review” keeps it coming back.</p>
+  <div class="sel" id="cardSel"></div>
+  <div class="fc-wrap">
+    <div class="meta"><span id="fcCount"></span><span id="fcKnown"></span></div>
+    <div class="prog"><div id="fcBar"></div></div>
+    <div class="flip" id="flip"><div class="flip-in">
+      <div class="face front"><div class="lab">Question</div><div class="txt" id="fcFront"></div><div class="sub" style="font-size:12px;margin-top:14px">tap to flip</div></div>
+      <div class="face back"><div class="lab">Answer</div><div class="txt" id="fcBack"></div></div>
+    </div></div>
+    <div class="row">
+      <button class="btn bad" id="fcReview">↻ Review again</button>
+      <button class="btn good" id="fcGot">✓ Got it</button>
+    </div>
+    <div class="row"><button class="btn g" id="fcShuffle">Shuffle &amp; restart</button></div>
+  </div>
+</section>
+<!-- QUIZ -->
+<section class="view" id="quiz">
+  <h1>Quiz</h1><p class="sub">Real test format. Tap an answer for instant feedback.</p>
+  <div class="sel" id="quizSel"></div>
+  <div style="max-width:640px">
+    <div class="meta"><span id="qCount"></span><span id="qScore"></span></div>
+    <div class="prog"><div id="qBar"></div></div>
+    <div id="qHost"></div>
+    <div class="row" style="justify-content:flex-start"><button class="btn g" id="qNext">Next →</button></div>
+  </div>
+</section>
+<!-- PROBLEM -->
+<section class="view" id="prob">
+  <h1>The 10-mark problem question</h1>
+  <p class="sub">It's drawn from the tutorials: apply the law to a scenario, or explain an area of law. Use <b>IRAC</b>.</p>
+  <div class="card">
+    <h3 style="margin:0 0 6px">IRAC structure</h3>
+    <div class="irac">
+      <p><span class="k">Issue</span> — the precise legal question the facts raise (e.g. “Is Sailaway bound by the mortgage?”).</p>
+      <p><span class="k">Rule</span> — the law: the relevant Corporations Act 2001 (Cth) section(s) + the leading case that established the principle.</p>
+      <p><span class="k">Application</span> — apply the rule to the facts; argue both sides where the facts are unclear; point to the exact facts that satisfy or fail each element.</p>
+      <p><span class="k">Conclusion</span> — a clear answer + the likely outcome/remedy or advice.</p>
+    </div>
+  </div>
+  <h2>Worked model answers</h2>
+  <div id="probWrap"></div>
+</section>
+</main>
+<script id="data" type="application/json"></script>
+<script>
+const AREAS = [
+{n:4,title:"Companies: Registration, Types & Directors",points:[
+"Companies are regulated by the <b>Corporations Act (Cth)</b> — federal legislation; must be registered with <b>ASIC (s117)</b>.",
+"On registration ASIC issues a <b>Certificate of Registration (s118)</b> + an <b>ACN</b> (9-digit); company gains legal status (<b>s119</b>).",
+"<b>Perpetual succession</b> — a company exists until deregistered (<b>s601AD</b>), regardless of who owns the shares.",
+"A company has the legal capacity of an individual + body-corporate powers (<b>s124</b>): issue shares/debentures, hold property, sue & be sued.",
+"Corporate veil = company is separate from members/directors. <b class='case'>Salomon v Salomon</b> (separate from controllers); <b class='case'>Macaura v Northern Assurance</b> (separate from members — no insurable interest in company assets); <b class='case'>Lee v Lee's Air Farming</b> (separate from employee — can be both director & employee).",
+"Veil <b>lifted</b> for fraud, to avoid a contractual/legal obligation, or insolvent trading (<b>s588G</b>). <b class='case'>Gilford Motor v Horne</b>; <b class='case'>Creasey v Breachwood Motors</b>.",
+"Liability classes: limited by shares (most common), limited by guarantee, no liability, unlimited. In a company limited by shares, a member's liability = the <b>unpaid value of their shares (s516)</b>.",
+"Public companies = <b>Ltd</b> (listed or unlisted); proprietary = <b>Pty Ltd</b> (s113/s45A; small or large). A <b>subsidiary</b> is controlled by a holding company (s46); 100% = wholly owned.",
+"<b>Director (s9AC)</b>: appointed director/alternate; also <b>de facto</b> (acts in the position) and <b>shadow</b> (directors accustomed to act on their instructions/wishes).",
+"Director types: Managing Director (s201J, powers s198C); Chair (s248E); Executive (employee); Non-executive; Nominee.",
+"<b>Appointment (s201A)</b>: public ≥3 directors; proprietary ≥1. Must be an individual (s201B), ≥18, consent (s201D), not disqualified.",
+"<b>Removal</b>: proprietary via replaceable rules/constitution (s203C); public — by shareholder resolution regardless of constitution (<b>s203D</b>).",
+"<b>Disqualification</b>: automatic (s206B — conviction/bankruptcy); by court (s206C/D/E); by ASIC (<b>s206F</b> — 2+ companies liquidated in 7 yrs paying unsecured creditors &lt;50%)."],
+cards:[["Which Act regulates companies & at what level?","Corporations Act (Cth) — federal/Commonwealth."],["What does ASIC issue on registration?","Certificate of Registration (s118) + an ACN; legal status under s119."],["What is perpetual succession (+ section that ends it)?","Company exists until deregistered (s601AD), regardless of share changes."],["Salomon v Salomon — principle?","A company is a separate legal entity, distinct from its controllers."],["Macaura v Northern Assurance — principle?","Company separate from members; member had no insurable interest in company assets."],["Lee v Lee's Air Farming — principle?","Company separate from its employee; one person can be both director and employee."],["When will a court lift the corporate veil?","Fraud, to avoid a contractual/legal obligation, or insolvent trading (s588G)."],["A member's liability in a company limited by shares?","Limited to the unpaid value of their shares (s516)."],["Define a shadow director (s9AC).","A person (not validly appointed) whose instructions/wishes the directors are accustomed to act on."],["Minimum directors: public vs proprietary (s201A)?","Public ≥3; proprietary ≥1."]],
+quiz:[
+{q:"The corporate veil can never be lifted by a court.",o:["True","False"],a:1,e:"Lifted for fraud, to avoid a contractual/legal obligation, or insolvent trading (s588G)."},
+{q:"Which case established a company is separate from its members (member had no insurable interest)?",o:["Salomon v Salomon","Macaura v Northern Assurance","Lee v Lee's Air Farming","Gilford Motor v Horne"],a:1,e:"Macaura v Northern Assurance — company–member separation."},
+{q:"A proprietary company must have at least how many directors (s201A)?",o:["1","2","3","5"],a:0,e:"Proprietary ≥1; public ≥3."},
+{q:"Fill in: a company has ______ succession (it exists until deregistered).",o:["limited","perpetual","temporary","joint"],a:1,e:"Perpetual succession (s601AD)."},
+{q:"Under s516, a member's liability in a company limited by shares = the unpaid value of their shares.",o:["True","False"],a:0,e:"s516 — limited to the unpaid amount on the shares."},
+{q:"Which section removes a public company's directors by shareholder resolution regardless of the constitution?",o:["s203C","s203D","s201A","s206F"],a:1,e:"s203D (public); s203C governs proprietary removal."}]},
+
+{n:5,title:"Constitution, Outsiders & Company Finance",points:[
+"Internal governance now runs on <b>replaceable rules</b>, a <b>constitution</b>, or both. Post-July-1998 companies need no memorandum/articles.",
+"<b>s140</b>: the constitution + replaceable rules bind the company and form a contract enforceable by members & directors. <b>s136</b>: adopt/modify/repeal a constitution by <b>special resolution</b>. <b>s135(2)</b>: a constitution can displace a replaceable rule.",
+"<b class='case'>Allen v Gold Reefs</b>: amend a constitution only for the <b>benefit of the company as a whole</b>. <b class='case'>Gambotto v WCP</b>: expropriating minority share rights must be (1) proper purpose, (2) fair, (3) not oppress the minority.",
+"<b>Indoor Management Rule</b> — outsiders may assume internal procedures were followed (<b class='case'>Royal British Bank v Turquand</b>).",
+"<b>s198A</b>: the board manages the company. Agent authority = actual (express/implied — <b class='case'>Freeman & Lockyer</b>) and apparent/ostensible (<b class='case'>Crabtree-Vickers</b>; <b class='case'>Pacific Carriers v BNP Paribas</b>).",
+"<b>s129 statutory assumptions</b> (entitlement under s128): indoor management, ASIC records, holding out, proper performance, s127 execution, document authenticity. <b>s128(3)</b>: assumptions apply even if the officer acted fraudulently/forged. <b>s128(4)</b>: assumptions do NOT apply if the outsider knew or suspected they were incorrect.",
+"Company liability: vicarious (through employees) and direct/organic — identify the <b>directing mind and will</b> (<b class='case'>Tesco v Nattrass</b>).",
+"Finance = equity (shares, retained profits) + debt (loans, debentures). Debt÷equity = <b>gearing/leverage ratio</b> (risk indicator). <b>s563A</b>: creditors paid before members.",
+"Shares: <b>ordinary</b> (voting + dividends), <b>preference</b> (priority of dividends), <b>options</b> (right to future shares). Transferable (s1070A); Pty directors may refuse a transfer (s1072G).",
+"Ch 6D fundraising: offers need <b>disclosure (s706)</b> unless an exception (s708). 4 disclosure docs (s709): prospectus (s710/711), short-form (s712), profile statement (s714), offer information statement (s715). <b>CSF</b> (Pt 6D.3A): raise up to $5m/12 months via a licensed intermediary.",
+"<b>Capital maintenance</b>: <b class='case'>Trevor v Whitworth</b> (maintain issued capital for creditors). Reductions (s256B — fair, not prejudice creditors, shareholder-approved) & buy-backs (s257B) now permitted under Ch 2J.",
+"<b>Dividends</b> = distribution of profits (s254T); s254U (directors decide); a dividend can be revoked until declared & payable (s254V).",
+"<b>PPS Act</b> security interests over personal property: must <b>attach</b>; assets are non-circulating (old fixed charge) or <b>circulating</b> (old floating charge); priority depends on <b>perfection</b> (e.g. registering a financing statement)."],
+cards:[["Section that binds the constitution/rules as a contract?","s140 — enforceable by members & directors."],["Resolution needed to modify or repeal a constitution?","A special resolution (s136)."],["Allen v Gold Reefs — test for amending a constitution?","Must be for the benefit of the company as a whole."],["Gambotto v WCP — 3 requirements to expropriate minority rights?","Proper purpose, fair, and not oppress the minority."],["Authority for the Indoor Management Rule?","Royal British Bank v Turquand."],["Section for the statutory assumptions outsiders can make?","s129 (entitlement under s128)."],["Tesco v Nattrass — principle?","Direct/organic liability — identify the 'directing mind and will'."],["Which share type carries voting + dividend rights?","Ordinary shares (preference = priority of dividends)."],["Trevor v Whitworth — principle?","Companies must maintain issued share capital for creditors."],["Under PPS, an asset sold in the ordinary course (old 'floating charge') is now a…?","Circulating asset (non-circulating = old fixed charge)."]],
+quiz:[
+{q:"Companies formed after July 1998 must still have a Memorandum of Association.",o:["True","False"],a:1,e:"Post-1998 companies need no memorandum; the info is in the application for registration."},
+{q:"Which case: an amendment expropriating minority share rights must be proper purpose, fair & not oppress?",o:["Allen v Gold Reefs","Royal British Bank v Turquand","Gambotto v WCP","Trevor v Whitworth"],a:2,e:"Gambotto v WCP."},
+{q:"Under s128(4), the s129 assumptions still apply even if the outsider suspected they were incorrect.",o:["True","False"],a:1,e:"s128(4): assumptions do NOT apply if the outsider knew or suspected they were wrong."},
+{q:"Which share carries voting rights AND dividend rights?",o:["Preference shares","Ordinary shares","Options","Debentures"],a:1,e:"Ordinary shares; preference = priority of dividends only."},
+{q:"Under the PPS Act, an asset disposed of in the normal course (formerly a 'floating charge') is a ______ asset.",o:["Non-circulating","Circulating","Perfected","Collateral"],a:1,e:"Circulating; non-circulating = old fixed charge."},
+{q:"s256B(1) requires a reduction of share capital to be approved by a shareholder resolution.",o:["True","False"],a:0,e:"It must be fair/reasonable, not prejudice creditors, and shareholder-approved."}]},
+
+{n:6,title:"Directors' Duties — Loyalty & Good Faith",points:[
+"Duties come from 3 sources: general law (fiduciary), the Corporations Act (statutory), and the constitution/replaceable rules.",
+"Fiduciary duties split into (A) loyalty & good faith and (B) care & diligence. Owed <b>to the company</b>; breach enforced by the company (or liquidator). ASIC enforces statutory duties.",
+"Loyalty duties: act in good faith & best interests; use power for a <b>proper purpose</b>; <b>avoid conflicts</b>; retain discretion.",
+"Remedy split: fiduciary breach → company seeks compensation (damages, account of profits, rescission, constructive trust). Statutory breach → ASIC seeks a penalty.",
+"Who is 'the company': solvent → shareholders' interests (<b class='case'>Parke v Daily News</b>); insolvent → creditors' interests (<b class='case'>Kinsela</b>).",
+"<b>Ratification</b> (shareholders forgiving a breach) is only for general-law breaches. NOT if insolvent (<b class='case'>Kinsela</b>), NOT if fraud on the minority (<b class='case'>Cook v Deeks</b>), NOT for statutory breaches (<b class='case'>Angus Law Services v Carabelas</b>), NOT if fraudulent/dishonest.",
+"Good faith: subjective genuine belief + objective element — what a rational director would consider best (<b class='case'>Advance Bank v FAI</b>).",
+"<b class='case'>Cook v Deeks</b>: directors diverted the company's business; ratification failed; constructive trust imposed.",
+"Proper purpose: <b class='case'>Howard Smith v Ampol</b> (issuing shares to destroy a majority/frustrate a bid); <b class='case'>Ngurli v McCann</b> (self-interest).",
+"Avoid conflicts: <b class='case'>Furs v Tomkies</b> (secret negotiations to the company's detriment); corporate opportunities need board disclosure (<b class='case'>Queensland Mines v Hudson</b>; <b>s191</b>).",
+"<b>s191</b>: a director with a <b>material personal interest</b> must notify the other directors (exceptions in s191(2): remuneration; loan guarantee; Pty co where directors already know).",
+"Statutory position duties: <b>s181</b> (good faith/best interests/proper purpose), <b>s182</b> (don't misuse position), <b>s183</b> (don't misuse information) — all <b>civil penalty</b> provisions.",
+"<b>s184</b>: criminal offence where a director breaches 181/182/183 AND the conduct is <b>reckless or dishonest</b>. Civil penalties: s1317G (greater of penalty units or 3× benefit), s1317H (compensation), s206C (disqualification)."],
+cards:[["Three sources of directors' duties?","General law (fiduciary), the Corporations Act (statutory), and the constitution/replaceable rules."],["To whom do directors owe fiduciary duties?","To the company."],["Who enforces the statutory duties?","ASIC."],["Parke v Daily News — principle?","When solvent, directors consider shareholders' interests."],["Kinsela — principle?","When insolvent, directors must consider creditors' interests; ratification barred."],["Cook v Deeks — principle?","Diverting company business = fraud on minority; ratification failed; constructive trust."],["Howard Smith v Ampol — principle?","Issuing shares to destroy a majority/frustrate a bid breaches the proper-purpose duty."],["Angus Law Services v Carabelas — principle?","Shareholders cannot ratify a breach of statutory duties."],["What does s181 cover?","Good faith, best interests, proper purpose (civil penalty)."],["s184 — when does a breach become criminal?","When the conduct is reckless or dishonest."]],
+quiz:[
+{q:"Directors owe their fiduciary duties to the shareholders individually, not to the company.",o:["True","False"],a:1,e:"They are owed to the company."},
+{q:"Which case: when insolvent, directors must consider creditors' interests?",o:["Parke v Daily News","Kinsela","Howard Smith v Ampol","Furs v Tomkies"],a:1,e:"Kinsela."},
+{q:"Ratification by a shareholders' meeting is available for which kind of breach?",o:["Statutory breaches","Fraud on the minority","General-law (fiduciary) breaches","Breaches when insolvent"],a:2,e:"Only general-law breaches, and not where insolvent/fraud on minority."},
+{q:"Sections 181, 182 and 183 are ______ penalty provisions.",o:["criminal","civil","administrative","replaceable"],a:1,e:"Civil; criminal liability arises under s184 where reckless/dishonest."},
+{q:"Under s184, a breach of 181/182/183 becomes criminal only where the conduct is reckless or dishonest.",o:["True","False"],a:0,e:"s184 adds the reckless/dishonest element."},
+{q:"Which case: conducting secret negotiations to the company's detriment breaches the no-conflict duty?",o:["Cook v Deeks","Ngurli v McCann","Furs v Tomkies","Advance Bank v FAI"],a:2,e:"Furs v Tomkies."}]},
+
+{n:7,title:"Care & Diligence, Governance, Reporting & Audit",points:[
+"Old general-law standard was <b>subjective</b> (<b class='case'>Re City Equitable</b>) — now obsolete; the test today is <b>objective</b>.",
+"<b class='case'>Daniels v Anderson</b> (AWA): directors must understand their duty & know the business. <b class='case'>ASIC v Healey</b>: directors have an objective duty to read & understand the financial statements — can't just rely on systems.",
+"<b>s180(1)</b>: objective 'reasonable person' standard of care & diligence (considers the company's circumstances + the director's responsibilities).",
+"<b>s180(2) Business Judgment Rule</b> — protected if: (a) good faith for a proper purpose; (b) no material personal interest; (c) informed themselves; (d) rationally believe it's in the company's best interests.",
+"<b class='case'>ASIC v Adler</b>: BJR defence failed — Adler had a material personal interest; BJR won't cover a failure to monitor; the director bears the onus.",
+"<b>s588G</b>: duty to prevent insolvent trading; personal liability for debts incurred while insolvent; objective 'reasonable director would have suspected' test.",
+"Reporting: keep financial records — <b>s286</b> (all companies, 7-yr retention); annual financial + directors' report — <b>s292</b> (large pty & public); audited — <b>s301</b>. Disclosing entities report half-yearly (s302).",
+"Small proprietary companies need not prepare reports unless directed by members holding <b>≥5% (s293)</b> or by ASIC (s294).",
+"Reports must comply with accounting standards (<b>s296</b>) and give a <b>true and fair view (s297)</b>.",
+"<b>Continuous disclosure</b> (ss674–675A): disclosing entities must disclose material info continuously; listed companies also follow ASX Listing Rules.",
+"Auditor independence: avoid conflicts (s324CA); 2-yr cooling-off before becoming an officer (s324CI); significant-role auditor <b>rotates after 5 years</b> (s324DA).",
+"Auditor duties (ss307–313): opinion on standards compliance + true & fair view; report to members; attend AGM (listed); report suspected contraventions to ASIC (s311).",
+"Auditor's duty to outsiders turns on <b>'proximity'</b> (<b class='case'>Esanda Finance v Peat Marwick</b>)."],
+cards:[["Section imposing the objective duty of care & diligence?","s180(1)."],["Re City Equitable stands for which (now outdated) standard?","The subjective general-law standard based on the director's own skills."],["ASIC v Healey — principle?","Directors must be able to read & understand the financial statements; can't just rely on systems."],["Four elements of the Business Judgment Rule (s180(2))?","Good faith/proper purpose; no material personal interest; informed; rational belief it's in the company's best interests."],["ASIC v Adler — why did the BJR fail?","Adler had a material personal interest; BJR doesn't cover failure to monitor; director bears the onus."],["Section creating the duty to prevent insolvent trading?","s588G — objective 'reasonable director would have suspected' test."],["Which sections require accounting-standards compliance & a true & fair view?","s296 (standards) and s297 (true & fair view)."],["Audit partner rotation rule?","Significant-role auditor rotates after max 5 successive years (s324DA)."],["Esanda Finance v Peat Marwick — principle?","An auditor's duty to an outsider depends on 'proximity'."],["% of voting shares to direct a small pty company to prepare reports?","≥5% (s293); ASIC can also direct (s294)."]],
+quiz:[
+{q:"The s180(1) standard of care is a subjective test based on the director's own skills.",o:["True","False"],a:1,e:"It's an objective 'reasonable person' test; the old subjective standard is obsolete."},
+{q:"In ASIC v Adler, the Business Judgment Rule failed because the director:",o:["Failed to attend meetings","Had a material personal interest","Could not read financials","Traded while insolvent"],a:1,e:"A material personal interest defeated a key BJR element."},
+{q:"Under s588G, the test is whether a ______ director would have suspected insolvency.",o:["prudent","reasonable","skilled","diligent"],a:1,e:"Objective 'reasonable director' standard."},
+{q:"A small proprietary company can be directed to prepare reports by members holding at least:",o:["5% (s293)","10% (s293)","25% (s294)","50% (s295)"],a:0,e:"≥5% under s293."},
+{q:"An auditor's duty of care to an outsider turns on 'proximity' (Esanda Finance v Peat Marwick).",o:["True","False"],a:0,e:"Proximity is the key for outsider duties."},
+{q:"Which section requires financial reports to give a 'true and fair view'?",o:["s286","s296","s297","s301"],a:2,e:"s297 (s296 separately requires standards compliance)."}]},
+
+{n:9,title:"Members' Rights & Company Meetings",points:[
+"Two sources of members' rights: <b>personal</b> (belong to & enforced by the shareholder) and <b>derivative</b> (belong to the company; shareholder sues on its behalf).",
+"Derivative actions were an exception to the rule in <b class='case'>Foss v Harbottle</b> (Internal Management Rule + Proper Plaintiff Rule).",
+"The general-law derivative right is abolished; now a <b>statutory derivative action (s236)</b>, with criteria in <b>s237</b> (company won't act; good faith; company's best interests; serious matter).",
+"Personal rights include contractual rights (<b>s140</b>) and procedural rights: inspect books (<b>s247A</b>), notice of meetings, correct the register (s175), challenge share variation (s246D), vote, dividends, 'two-strikes' (s250U).",
+"Protections: s1322 (procedural irregularity), s461 (wind up for oppression), s1324 (injunction), <b>s232 (oppression)</b>, s233 (orders — wind up, buy shares, etc.).",
+"Oppression cases (s232): <b class='case'>Wayde v NSW Rugby League</b> (reasonableness of the board's decision); <b class='case'>Sanford v Sanford Courier Service</b> (minority oppressed by majority self-interest); <b class='case'>Scottish Co-op v Meyer</b> (diverting a business opportunity = oppression).",
+"3 meeting types: <b>Class meeting</b> (vary class rights — s246B); <b>AGM</b>; <b>EGM</b>.",
+"<b>AGM</b>: compulsory for public companies; first within <b>18 months</b> of registration; then annually within <b>5 months</b> of financial year end (s250N).",
+"<b>Calling an EGM</b>: s249C (a director); s249G (court); <b>s249F</b> (members ≥5% of votes, members pay); s249D (members ≥5% request directors); s249E (if directors don't, members call & company pays).",
+"<b>Resolutions</b>: ordinary = more than <b>50%</b> (e.g. removing/electing directors); special = at least <b>75%</b> (e.g. changing the constitution/name).",
+"<b>Voting</b>: show of hands = one vote per member; poll = one vote per share (s250E). A poll may be demanded by ≥5 members, members with ≥5% of votes, or the chair (s250L).",
+"<b>Quorum</b> (s249T, replaceable): default = <b>2 members</b> present throughout the entire meeting."],
+cards:[["Two main sources of members' rights?","Personal rights and derivative rights."],["Section for the statutory derivative action?","s236 (criteria in s237)."],["Two aspects of the rule in Foss v Harbottle?","Internal Management Rule and Proper Plaintiff Rule."],["Section giving members the right to inspect the books?","s247A."],["Section dealing with oppression?","s232 (orders under s233)."],["When must a public company hold its first AGM?","Within 18 months of registration (then annually, within 5 months of FY end — s250N)."],["Vote needed for an ordinary vs special resolution?","Ordinary > 50%; special ≥ 75%."],["Under s249F, what % of votes lets members call an EGM (own cost)?","≥5%."],["On a poll, how is voting counted?","One vote per share held (s250E)."],["Default quorum under s249T?","2 members present throughout the entire meeting."]],
+quiz:[
+{q:"A statutory derivative action is brought under which section?",o:["s232","s236","s247A","s250N"],a:1,e:"s236 (criteria in s237)."},
+{q:"Cook v Deeks concerns expropriation of members' (not the company's) property.",o:["True","False"],a:1,e:"Cook v Deeks = the company's property; Gambotto = members' property."},
+{q:"An ordinary resolution requires more than ___ and a special resolution at least ___.",o:["50% / 75%","25% / 50%","75% / 90%","50% / 90%"],a:0,e:"Ordinary > 50%; special ≥ 75%."},
+{q:"Under s249F, members with at least what % of the votes may call an EGM (at their own cost)?",o:["2%","5%","10%","25%"],a:1,e:"≥5% under s249F."},
+{q:"On a poll, each member has one vote per share held.",o:["True","False"],a:0,e:"s250E — per share (unlike show of hands)."},
+{q:"The default quorum under s249T is ___ members present throughout the meeting.",o:["1","2","3","5"],a:1,e:"2 members."}]},
+
+{n:10,title:"Takeovers & Financial Markets",points:[
+"Takeovers are about <b>control</b>. Thresholds: >50% (board), 75% (constitution), 100% (total control).",
+"<b>Relevant interest (s608)</b>: a person who holds, or can exercise/vote/dispose of, the securities. The law works off relevant interest, not legal ownership.",
+"<b>s606 — 20% threshold</b>: must not acquire a relevant interest that takes a holding above 20% (or increases it anywhere between 20% and 90%) unless an exemption applies.",
+"<b>s661A</b> compulsory acquisition: bidder (incl. associates) with ≥90% relevant interest AND ≥<b>75%</b> of the bid accepted can buy out the rest. <b>s662A</b>: with ≥90%, the bidder MUST offer to buy out the minority.",
+"<b>s602</b>: excludes acquiring control of an <b>unlisted company with fewer than 50 members</b>.",
+"<b>s611 exemptions</b>: will/operation of law; IPO; <b>creeping takeover</b> (up to 3% every 6 months if holding ≥19% for 6+ months); market & off-market bids.",
+"<b>Market bid</b> (s634): listed only, full bid, <b>cash only</b>. <b>Off-market bid</b> (s632): listed & unlisted, full or partial, cash/securities/combination — most popular.",
+"<b>Bidder's statement (s636)</b>: identity, terms, intentions. <b>Target's statement (s638)</b>: directors' recommendation + all info shareholders reasonably need. <b>s640</b>: expert's report needed if bidder is connected with target or already entitled to ≥30%.",
+"<b>s670A</b>: prohibits misleading/deceptive statements in takeover documents (civil + criminal liability).",
+"The <b>Takeovers Panel</b> resolves disputes during a bid; can declare 'unacceptable circumstances' and make orders.",
+"Financial services (Ch 7): providers must hold a licence (<b>s911A</b>) and meet general obligations (<b>s912A</b> — efficient, honest, fair; competent; manage conflicts).",
+"Prohibited conduct: short selling (s1020B), market manipulation (s1041A), false trading/rigging (s1041B), misleading/deceptive conduct (s1041H).",
+"<b>Insider trading (s1043A)</b>: possessing price-sensitive info not generally available that would materially affect price, then trading (trading), procuring another (procuring), or tipping (tipping). 'Generally available' = readily observable (s1042C). <b class='case'>R v Rivkin</b>."],
+cards:[["Section defining 'relevant interest' (+ its limbs)?","s608 — hold, exercise, vote, or dispose of the securities."],["What is the takeover threshold under s606?","20% of issued voting capital (relevant interest)."],["s661A — two conditions for compulsory acquisition?","≥90% total relevant interest AND ≥75% of the bid accepted."],["What does s602 exempt?","Acquiring control of an unlisted company with fewer than 50 members."],["What is a 'creeping takeover' (s611)?","Acquire up to 3% every 6 months while holding ≥19% for 6+ months."],["Market bid vs off-market bid — consideration?","Market = cash only; off-market = cash, securities, or a combination."],["When does s640 require an expert's report with the target's statement?","If the bidder is connected with the target, or already entitled to ≥30%."],["What does s670A prohibit?","Misleading/deceptive statements in takeover documents (civil + criminal liability)."],["Three insider-trading offences (s1043A)?","Trading, procuring, and tipping."],["R v Rivkin — issue?","Whether info not generally available would have had a material effect on price."]],
+quiz:[
+{q:"Under s606, a person must generally not acquire a relevant interest in voting shares above:",o:["10%","20%","50%","75%"],a:1,e:"The 20% threshold (relevant interest)."},
+{q:"The s606 threshold is based on legal ownership, not relevant interest.",o:["True","False"],a:1,e:"It's based on relevant interest (s608)."},
+{q:"For compulsory acquisition under s661A, the bidder needs ≥90% relevant interest and what % of the bid accepted?",o:["50%","66%","75%","90%"],a:2,e:"At least 75%."},
+{q:"Which bid allows consideration to be cash, securities, or a combination?",o:["Market bid","Off-market bid","Both","Neither"],a:1,e:"Off-market; market bids are cash only."},
+{q:"Information is 'generally available' (s1042C) only if someone actually observed it.",o:["True","False"],a:1,e:"It's generally available if readily observable, even if not actually observed."},
+{q:"Which case concerned insider info not generally available that would materially affect price?",o:["R v Rivkin","Salomon v Salomon","ASIC v Adler","Foss v Harbottle"],a:0,e:"R v Rivkin."}]},
+
+{n:11,title:"Insolvency & Restructuring",points:[
+"<b>s95A</b>: solvent = able to pay debts <b>as and when</b> due; not solvent = insolvent.",
+"Five ways to deal with an insolvent company: Schemes of Arrangement, Voluntary Administration, Pt 5.3B Restructure (restructure); Receivership (secured-creditor remedy); Liquidation (wind up & deregister).",
+"<b>Schemes</b> (ss411–412): need court approval; binding if approved by the court AND a majority of creditors holding <b>≥75% of debt</b>. Members' scheme = friendly reconstruction with shareholders; creditors' scheme = insolvency arrangement (rare).",
+"<b>Voluntary Administration</b> — most popular; quick, no court. Aim (<b>s435A</b>): save the company or maximise creditor returns.",
+"Administrator appointed by <b>directors (s436A)</b>, liquidator (s436B), or a secured party over the whole property (s436C). Must be a <b>registered liquidator (s448B)</b> and independent (s532 — not owed >$5,000, not an officer/auditor); is an officer (s9).",
+"VA imposes a <b>moratorium</b> on creditor actions (ss440A–G). Exceptions: secured creditor over the whole property enforcing within the <b>13-business-day</b> decision period (s441A); enforcement before appointment (s441B); perishable property (s441C).",
+"Directors' powers limited in VA: act only with the administrator's written consent (s198G); transactions void without consent (s437D).",
+"VA timeline: first meeting within 8 business days (s436E); decision meeting within the 20-business-day convening period (s439A); outcomes (<b>s439C</b>): <b>DOCA</b>, winding up, or administration ends.",
+"<b>Pt 5.3B Restructure</b>: company keeps control; liabilities must <b>not exceed $1 million</b>; directors appoint a restructuring practitioner; plan within 20 business days, approved by a majority of creditors by value; gives some s588G protection.",
+"<b>Receivership</b>: receivers appointed by court (s1323; s233) or by secured creditors; must be registered liquidators (s418); an agent of the company; <b>s420A</b> duty to sell at market value or best price reasonably available."],
+cards:[["Statutory definition of solvency?","s95A — insolvent = unable to pay debts as and when due."],["Aim of Voluntary Administration (+ section)?","s435A — save the company or maximise return to creditors."],["Three parties who can appoint an administrator?","Directors (s436A), liquidator (s436B), secured party over the whole property (s436C)."],["A scheme of arrangement is binding when approved by…?","The court AND a majority of creditors holding ≥75% of the debt."],["Independence requirement for an administrator (s532)?","Not owed >$5,000 and not an officer/auditor of the company."],["Three s439C outcomes of the VA decision meeting?","DOCA, winding up (liquidation), or administration ends."],["Max total liabilities to use a Pt 5.3B Restructure?","$1 million."],["s441A exception to the VA moratorium?","Secured creditor over the whole property enforcing within the first 13 business days."],["A receiver's duty when selling assets (s420A)?","Sell at market value or the best price reasonably available."],["Members' scheme vs creditors' scheme?","Members' = friendly reconstruction with shareholders; creditors' = insolvency arrangement with creditors."]],
+quiz:[
+{q:"Under s95A, a company is insolvent when it cannot pay its debts as and when they become due.",o:["True","False"],a:0,e:"That's the s95A test."},
+{q:"A scheme of arrangement binds creditors when approved by the court and a majority holding at least what % of debt?",o:["50%","66%","75%","90%"],a:2,e:"≥75% of debt."},
+{q:"Which section sets the aim of Voluntary Administration?",o:["s436A","s435A","s439C","s443A"],a:1,e:"s435A."},
+{q:"The maximum total liabilities to use a Part 5.3B Restructure is:",o:["$500,000","$1 million","$5 million","No limit"],a:1,e:"$1 million."},
+{q:"An administrator must be a registered liquidator (s448B) and is an officer under s9.",o:["True","False"],a:0,e:"Both apply."},
+{q:"Under s420A, when selling company assets a receiver must:",o:["Sell only to secured creditors","Sell at market value or best price reasonably available","Get court approval first","Sell within 13 business days"],a:1,e:"s420A duty."}]},
+
+{n:12,title:"Liquidation & Insolvent Trading",points:[
+"Two ways to wind up: <b>compulsory</b> (court-ordered) and <b>voluntary</b> (company-initiated).",
+"Compulsory: winding up in insolvency (ss459A, 459P) or on other grounds e.g. oppression (s461).",
+"Voluntary: <b>members'</b> (solvent — special resolution s491; directors' <b>declaration of solvency</b> that debts paid in full within <b>12 months</b>, s494) and <b>creditors'</b> (insolvent).",
+"<b>Simplified liquidation</b> (smaller companies): liabilities <b>under $1m</b>; not available where <b>25% by value</b> of creditors oppose; unfair-preference relation-back cut from 6 to 3 months.",
+"Compulsory winding-up applicants: creditors (most common), the company, members, ASIC (needs court leave), a director.",
+"<b>Statutory demand</b>: in writing, due-and-payable debt ≥ statutory minimum (<b>$4,000</b>), pay within 21 days (s459F). Non-compliance creates a <b>presumption of insolvency (s459C(2))</b>. Set aside within 21 days (s459G) for a defect (s459J) or genuine dispute (s459H).",
+"Distribution order: (1) secured creditors; (2) <b>priority creditors (s556)</b> — recovery costs, winding-up costs, liquidator's fees, then <b>employee entitlements</b>; (3) general unsecured. <b>s555</b> = <b>pari passu</b> (equal/proportionate to unsecured creditors).",
+"Liquidator recovers funds: compensation from directors for breach; <b>insolvent trading (s588G)</b>; and 'claw back' <b>voidable transactions (s588FE)</b>.",
+"Voidable transactions & relation-back: unfair preference (insolvency, 6 months); uncommercial (2 years); related-entity (4 years); to defeat creditors (10 years); unreasonable director-related (4 years, no insolvency); unfair loan (any time).",
+"<b>Insolvent trading (s588G)</b>: a director is personally liable for a debt incurred while insolvent where there were reasonable grounds to suspect insolvency; civil + criminal (where dishonest); brought by liquidator (s588M) or ASIC.",
+"Defences (<b>s588H</b>): reasonable grounds to expect solvency; reasonable reliance on a competent person (<b class='case'>ASIC v Plymin</b>; <b class='case'>Metropolitan Fire Systems v Miller</b>); illness/absence; took reasonable steps. <b>Safe harbour (s588GA)</b>: a course of action reasonably likely to lead to a better outcome than administration/liquidation."],
+cards:[["Section setting the solvency test?","s95A — pay debts as and when due."],["% special resolution for members to wind up?","75% (s491)."],["Declaration of solvency — debts paid in full within?","12 months (s494)."],["Statutory minimum debt for a statutory demand?","$4,000."],["Effect of failing to comply with a statutory demand?","A presumption of insolvency (s459C(2))."],["Time to apply to set aside a statutory demand?","21 days from service (s459G)."],["What is the pari passu principle (+ section)?","Equal/proportionate distribution among unsecured creditors (s555)."],["Section for personal director liability for insolvent trading?","s588G."],["Relation-back for unfair preferences: standard vs simplified?","6 months (standard) / 3 months (simplified)."],["Safe-harbour defence section to insolvent trading?","s588GA."]],
+quiz:[
+{q:"A members' voluntary winding up requires directors to declare debts will be paid in full within 12 months.",o:["True","False"],a:0,e:"Declaration of solvency, s494."},
+{q:"Which section creates the presumption of insolvency from non-compliance with a statutory demand?",o:["s95A","s459C(2)","s459G","s588G"],a:1,e:"s459C(2)."},
+{q:"Simplified liquidation is NOT available where what % (by value) of creditors oppose?",o:["10%","25%","50%","75%"],a:1,e:"25% by value."},
+{q:"Employee entitlements rank as ______ creditors under s556.",o:["secured","priority","general unsecured","deferred"],a:1,e:"Priority creditors (s556), after costs & liquidator's fees."},
+{q:"An unfair preference requires insolvency and has a standard relation-back period of ___ months.",o:["2","4","6","10"],a:2,e:"6 months (3 in simplified liquidation)."},
+{q:"Which case supports the s588H defence of reasonable reliance on a competent person?",o:["ASIC v Plymin","Salomon v Salomon","Foss v Harbottle","Donoghue v Stevenson"],a:0,e:"ASIC v Plymin (with Metropolitan Fire)."}]}
+];
+const PROBLEM = [
+{title:"Sailaway / Broadacres — dealing with outsiders (Wk 7)",issue:"Can ABC Bank enforce a mortgage against Sailaway when a director executed it without authority and forged the co-director's signature?",rule:"Under the indoor management rule and the statutory assumptions (ss128–129), an outsider may assume officers acted with authority and documents were duly executed — BUT s128(4) denies the assumptions where the outsider knew or suspected they were incorrect (Royal British Bank v Turquand; Northside Developments v Registrar-General).",app:"The bank knew Sailaway's business did not involve property development and that guaranteeing Broadacres' unrelated loan was suspicious, yet asked no questions — this put it on notice, so it could not reasonably assume the director had authority; the forgery also defeats the due-execution assumption.",concl:"The ss128–129 assumptions are unavailable; Sailaway is likely NOT bound by the mortgage."},
+{title:"Roberta / EY / WHS — directors' duties (Wk 8)",issue:"Has Roberta breached her statutory and general-law duties via a conflict of interest and misuse of position/information?",rule:"Directors must act in good faith in the company's best interests (s181), not misuse position (s182) or information (s183), and disclose material personal interests (s191); at general law they must avoid conflicts and not divert corporate opportunities or make secret profits (Regal (Hastings) v Gulliver; Cook v Deeks).",app:"Roberta controlled rival WHS, earned a secret commission, and failed to disclose her material personal interest in the EY–WHS supply contract — placing her interest in conflict with EY's and profiting from her board position.",concl:"She has breached ss181–183 and s191 and the fiduciary no-conflict/no-profit rules. EY may seek an account of profits, rescission and compensation; ASIC may seek civil penalties, disqualification (s206C) or compensation."},
+{title:"Mr & Mrs T / Fluffy Donuts — insolvent trading (Wk 12)",issue:"Are the directors personally liable for insolvent trading under s588G?",rule:"A director breaches s588G where (i) they were a director when a debt was incurred, (ii) the company was insolvent (or became so), (iii) there were reasonable grounds to suspect insolvency, and (iv) a reasonable director would have been aware; defences in s588H (ASIC v Plymin).",app:"Both were directors as debts mounted with almost no assets and suppliers holding off — reasonable grounds to suspect insolvency existed. Mr T (an accountant) clearly should have known; relying on a 'spiritual advisor's' prediction is not reasonable grounds to expect solvency; Mrs T simply trusting Mr T, with no inquiry, fails the s588H reliance defence.",concl:"Both are likely liable for insolvent trading under s588G; neither has a strong s588H defence, so they may be personally liable for the debts incurred while insolvent."}
+];
+// ---- render ----
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+// countdown
+(function(){const ex=new Date(2026,5,4,9,0,0),now=new Date(),ms=ex-now;const el=$('#cd');if(ms<=0){el.innerHTML='Good luck today! 🍀';return}const h=Math.floor(ms/3600000);el.innerHTML=`Test 2 in <b>~${h}h</b> ⚡`})();
+// tabs
+$$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.classList.toggle('on',x===t));$$('.view').forEach(v=>v.classList.toggle('on',v.id===t.dataset.v));scrollTo(0,0)});
+// home grid
+$('#areaGrid').innerHTML=AREAS.map(a=>`<div class="card area-pick" data-n="${a.n}"><span class="pill">Area ${a.n}</span><div style="margin-top:7px;font-weight:600">${a.title}</div><div class="sub" style="font-size:12px;margin-top:4px">${a.cards.length} cards · ${a.quiz.length} quiz Qs</div></div>`).join('');
+$$('.area-pick').forEach(c=>c.onclick=()=>{$$('.tab').forEach(x=>x.classList.toggle('on',x.dataset.v==='notes'));$$('.view').forEach(v=>v.classList.toggle('on',v.id==='notes'));openArea(+c.dataset.n);scrollTo(0,0)});
+// notes
+$('#notesWrap').innerHTML=AREAS.map(a=>`<div class="card acc" data-n="${a.n}" style="padding:0"><h3><span><span class="pill">Area ${a.n}</span> &nbsp;${a.title}</span><span class="arw">▾</span></h3><div class="body"><ul>${a.points.map(p=>`<li>${p}</li>`).join('')}</ul></div></div>`).join('');
+$$('.acc h3').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+function openArea(n){const el=$(`.acc[data-n="${n}"]`);if(el){$$('.acc').forEach(x=>x.classList.remove('open'));el.classList.add('open');el.scrollIntoView({behavior:'smooth'})}}
+// flashcards
+let fcArea='all',fcQueue=[],fcIdx=0,fcKnown=0,fcTotal=0;
+function buildCardSel(){$('#cardSel').innerHTML=`<span class="fchip ${fcArea==='all'?'on':''}" data-a="all">All</span>`+AREAS.map(a=>`<span class="fchip ${fcArea==a.n?'on':''}" data-a="${a.n}">A${a.n}</span>`).join('');$$('#cardSel .fchip').forEach(c=>c.onclick=()=>{fcArea=c.dataset.a==='all'?'all':+c.dataset.a;buildCardSel();startCards()})}
+function allCards(){let r=[];AREAS.forEach(a=>{if(fcArea==='all'||fcArea==a.n)a.cards.forEach(c=>r.push({q:c[0],a:c[1]}))});return r}
+function shuffle(x){for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
+function startCards(){fcQueue=shuffle(allCards());fcTotal=fcQueue.length;fcIdx=0;fcKnown=0;renderCard()}
+function renderCard(){const f=$('#flip');f.classList.remove('flipped');if(fcIdx>=fcQueue.length){$('#fcFront').innerHTML='🎉 Deck cleared!';$('#fcBack').innerHTML='Nice work.';$('#fcCount').textContent=`${fcTotal} done`;$('#fcKnown').textContent=`${fcKnown} got it`;$('#fcBar').style.width='100%';return}const c=fcQueue[fcIdx];$('#fcFront').innerHTML=c.q;$('#fcBack').innerHTML=c.a;$('#fcCount').textContent=`Card ${fcIdx+1} of ${fcQueue.length}`;$('#fcKnown').textContent=`${fcKnown} got it`;$('#fcBar').style.width=(fcIdx/fcTotal*100)+'%'}
+$('#flip').onclick=()=>$('#flip').classList.toggle('flipped');
+$('#fcGot').onclick=()=>{fcKnown++;fcIdx++;renderCard()};
+$('#fcReview').onclick=()=>{if(fcIdx<fcQueue.length)fcQueue.push(fcQueue[fcIdx]);fcIdx++;renderCard()};
+$('#fcShuffle').onclick=startCards;
+buildCardSel();startCards();
+// quiz
+let qzArea='all',qz=[],qi=0,qScore=0,qAnswered=0;
+function buildQuizSel(){$('#quizSel').innerHTML=`<span class="fchip ${qzArea==='all'?'on':''}" data-a="all">All</span>`+AREAS.map(a=>`<span class="fchip ${qzArea==a.n?'on':''}" data-a="${a.n}">A${a.n}</span>`).join('');$$('#quizSel .fchip').forEach(c=>c.onclick=()=>{qzArea=c.dataset.a==='all'?'all':+c.dataset.a;buildQuizSel();startQuiz()})}
+function allQ(){let r=[];AREAS.forEach(a=>{if(qzArea==='all'||qzArea==a.n)a.quiz.forEach(q=>r.push({...q,area:a.n}))});return shuffle(r)}
+function startQuiz(){qz=allQ();qi=0;qScore=0;qAnswered=0;renderQ()}
+function renderQ(){const host=$('#qHost');if(qi>=qz.length){const pct=qz.length?Math.round(qScore/qz.length*100):0;host.innerHTML=`<div class="card res"><div class="pill">Done</div><div class="big">${pct}%</div><p>${qScore} of ${qz.length} correct.</p><button class="btn" onclick="startQuiz2()">↻ Try again</button></div>`;$('#qCount').textContent='Complete';$('#qScore').innerHTML=`Final: <b>${qScore}</b>/${qz.length}`;$('#qBar').style.width='100%';$('#qNext').style.display='none';return}
+$('#qNext').style.display='';const q=qz[qi];$('#qCount').textContent=`Q ${qi+1} of ${qz.length} · Area ${q.area}`;$('#qScore').innerHTML=`Score <b>${qScore}</b>/${qAnswered}`;$('#qBar').style.width=(qi/qz.length*100)+'%';
+host.innerHTML=`<div class="card"><span class="pill">Area ${q.area}</span><div class="qx">${q.q}</div>${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="l">${String.fromCharCode(65+i)}</span>${o}</button>`).join('')}<div class="explain" id="ex"></div></div>`;
+$$('#qHost .opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;$$('#qHost .opt').forEach(x=>{x.classList.add('dis');if(+x.dataset.i===q.a)x.classList.add('correct')});if(i!==q.a)b.classList.add('wrong');else qScore++;qAnswered++;const ex=$('#ex');ex.innerHTML=`<b>${i===q.a?'✓ Correct.':'✗ Not quite.'}</b> ${q.e}`;ex.classList.add('show');$('#qScore').innerHTML=`Score <b>${qScore}</b>/${qAnswered}`})}
+window.startQuiz2=startQuiz;
+$('#qNext').onclick=()=>{qi++;renderQ()};
+buildQuizSel();startQuiz();
+// problem
+$('#probWrap').innerHTML=PROBLEM.map(p=>`<details><summary>${p.title}</summary><div class="irac"><p><span class="k">Issue:</span> ${p.issue}</p><p><span class="k">Rule:</span> ${p.rule}</p><p><span class="k">Application:</span> ${p.app}</p><p><span class="k">Conclusion:</span> ${p.concl}</p></div></details>`).join('');
+</script>
+</body>
+</html>
