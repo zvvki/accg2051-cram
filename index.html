@@ -476,38 +476,44 @@ $$('.area-pick').forEach(c=>c.onclick=()=>goNotes(+c.dataset.n));
 // notes — one concept per screen (teach flow)
 const CONCEPTS=JSON.parse(document.getElementById('concepts').textContent);
 const fmt=t=>t.replace(/\b(ss?\d+[A-Z]*(\(\d+\)|\([A-Za-z]+\))?(?:[A-Z]{1,4})?)/g,'<b>$1</b>');
-let nArea=null,nStep=0;
-function goNotes(n){$$('.tab').forEach(x=>x.classList.toggle('on',x.dataset.v==='notes'));$$('.view').forEach(v=>v.classList.toggle('on',v.id==='notes'));nArea=n;nStep=0;renderNotes();scrollTo(0,0)}
+let nArea=null,nStep=0,nQ=[];
+function shuffleOpts(q){const correct=q.o[q.a];const o=shuffle([...q.o]);return {q:q.q,o,a:o.indexOf(correct),e:q.e}}
+function startArea(n){nArea=n;nStep=0;const a=AREAS.find(x=>x.n===n);nQ=shuffle([...(a.quiz||[])]).map(shuffleOpts);renderNotes();scrollTo(0,0)}
+function goNotes(n){$$('.tab').forEach(x=>x.classList.toggle('on',x.dataset.v==='notes'));$$('.view').forEach(v=>v.classList.toggle('on',v.id==='notes'));startArea(n)}
+function nHead(area,cur,total){const pct=(cur/total)*100;return `<div class="lhead"><div class="ltop"><span><b>Area ${nArea}</b> · ${area.title}</span><span class="lx">${cur+1} / ${total}</span></div><div class="prog"><div style="width:${pct}%"></div></div></div><a class="back2" id="backTopics">← Back to topics</a><hr class="div2"/>`}
 function renderNotes(){
   const w=$('#notesWrap');
   if(nArea===null){
-    w.innerHTML=`<h1>Learn the law</h1><p class="sub">Pick an area — you'll go through it one concept at a time. Formal definition on top, plain English underneath.</p><div class="grid">`+AREAS.map(a=>{const n=(CONCEPTS[a.n]||[]).length;return `<div class="card area-pick2" data-n="${a.n}"><span class="pill">Area ${a.n}</span><div style="margin-top:7px;font-weight:600">${a.title}</div><div class="sub" style="font-size:12px;margin-top:4px">${n} concepts →</div></div>`}).join('')+`</div>`;
-    $$('.area-pick2').forEach(c=>c.onclick=()=>{nArea=+c.dataset.n;nStep=0;renderNotes();scrollTo(0,0)});
+    w.innerHTML=`<h1>Learn the law</h1><p class="sub">Pick an area — go through it one concept at a time, then a few quick questions (different every run).</p><div class="grid">`+AREAS.map(a=>{const n=(CONCEPTS[a.n]||[]).length;return `<div class="card area-pick2" data-n="${a.n}"><span class="pill">Area ${a.n}</span><div style="margin-top:7px;font-weight:600">${a.title}</div><div class="sub" style="font-size:12px;margin-top:4px">${n} concepts + quiz →</div></div>`}).join('')+`</div>`;
+    $$('.area-pick2').forEach(c=>c.onclick=()=>startArea(+c.dataset.n));
     return;
   }
-  const area=AREAS.find(a=>a.n===nArea),cs=CONCEPTS[nArea]||[],total=cs.length;
+  const area=AREAS.find(a=>a.n===nArea),cs=CONCEPTS[nArea]||[],C=cs.length,Q=nQ.length,total=C+Q;
   window.scrollTo({top:0,behavior:'instant'});
   if(nStep>=total){
-    w.innerHTML=`<div class="card res"><div style="font-size:46px">🎉</div><h2 style="margin:4px 0">Area ${nArea} complete!</h2><p class="sub">You went through all ${total} concepts of ${area.title}.</p><div class="row"><button class="btn" id="bt">← Back to topics</button><button class="btn g" id="redo">↻ Redo this area</button></div></div>`;
-    $('#bt').onclick=()=>{nArea=null;renderNotes();scrollTo(0,0)};$('#redo').onclick=()=>{nStep=0;renderNotes()};
+    w.innerHTML=`<div class="card res"><div style="font-size:46px">🎉</div><h2 style="margin:4px 0">Area ${nArea} complete!</h2><p class="sub">You worked through ${C} concepts and ${Q} questions on ${area.title}.</p><div class="row"><button class="btn" id="bt">← Back to topics</button><button class="btn g" id="redo">↻ Redo (new questions)</button></div></div>`;
+    $('#bt').onclick=()=>{nArea=null;renderNotes();scrollTo(0,0)};$('#redo').onclick=()=>startArea(nArea);
     return;
   }
-  const c=cs[nStep],pct=(nStep/total)*100;
-  w.innerHTML=`
-    <div class="lhead"><div class="ltop"><span><b>Area ${nArea}</b> · ${area.title}</span><span class="lx">${nStep+1} / ${total}</span></div><div class="prog"><div style="width:${pct}%"></div></div></div>
-    <a class="back2" id="backTopics">← Back to topics</a>
-    <hr class="div2"/>
-    <div class="card lcard">
-      <div class="llab">📖 Learn</div>
-      <h2 class="ltitle">${c.t}</h2>
-      <p class="lformal">${fmt(c.f)}</p>
-      <div class="cp"><span class="cpl">💡 In plain English</span>${c.p}</div>
-    </div>
-    <button class="btn lnext" id="nNext">${nStep===total-1?'Finish area ✓':'Got it, continue →'}</button>
-    ${nStep>0?'<button class="btn g lprev" id="nPrev">‹ Previous</button>':''}`;
+  if(nStep<C){ // TEACH
+    const c=cs[nStep];
+    w.innerHTML=nHead(area,nStep,total)+`
+      <div class="card lcard"><div class="llab">📖 Learn</div><h2 class="ltitle">${c.t}</h2><p class="lformal">${fmt(c.f)}</p><div class="cp"><span class="cpl">💡 In plain English</span>${c.p}</div></div>
+      <button class="btn lnext" id="nNext">Got it, continue →</button>
+      ${nStep>0?'<button class="btn g lprev" id="nPrev">‹ Previous</button>':''}`;
+    $('#nNext').onclick=()=>{nStep++;renderNotes()};
+    const pv=$('#nPrev');if(pv)pv.onclick=()=>{nStep--;renderNotes()};
+  } else { // QUIZ
+    const q=nQ[nStep-C];
+    w.innerHTML=nHead(area,nStep,total)+`
+      <div class="card lcard"><div class="llab" style="color:#5fd0ea">❓ Quick check</div><h2 class="ltitle" style="font-size:19px">${q.q}</h2>
+      ${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="l">${String.fromCharCode(65+i)}</span>${o}</button>`).join('')}
+      <div class="explain" id="ex"></div></div>
+      <button class="btn lnext" id="nNext" style="display:none">${nStep===total-1?'Finish ✓':'Continue →'}</button>`;
+    $$('#notesWrap .opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;$$('#notesWrap .opt').forEach(x=>{x.classList.add('dis');if(+x.dataset.i===q.a)x.classList.add('correct')});if(i!==q.a)b.classList.add('wrong');const ex=$('#ex');ex.innerHTML=`<b>${i===q.a?'✓ Correct.':'✗ Not quite.'}</b> ${q.e}`;ex.classList.add('show');$('#nNext').style.display=''});
+    $('#nNext').onclick=()=>{nStep++;renderNotes()};
+  }
   $('#backTopics').onclick=()=>{nArea=null;renderNotes();scrollTo(0,0)};
-  $('#nNext').onclick=()=>{nStep++;renderNotes()};
-  const pv=$('#nPrev');if(pv)pv.onclick=()=>{nStep--;renderNotes()};
 }
 renderNotes();
 // flashcards
