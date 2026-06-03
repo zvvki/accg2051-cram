@@ -90,6 +90,7 @@ kbd{background:var(--chip);border:1px solid var(--line);border-radius:5px;paddin
     <button class="tab on" data-v="home">Overview</button>
     <button class="tab" data-v="notes">Notes</button>
     <button class="tab" data-v="cards">Flashcards</button>
+    <button class="tab" data-v="cases">Cases</button>
     <button class="tab" data-v="quiz">Quiz</button>
     <button class="tab" data-v="prob">Problem (IRAC)</button>
   </nav>
@@ -133,6 +134,23 @@ kbd{background:var(--chip);border:1px solid var(--line);border-radius:5px;paddin
     <div class="row"><button class="btn g" id="fcShuffle">Shuffle &amp; restart</button></div>
   </div>
 </section>
+<!-- CASES -->
+<section class="view" id="cases">
+  <h1>Cases</h1><p class="sub">Law loves “which case established X?”. Read the case name, recall the principle, then tap to flip. “Got it” removes it; “Review” keeps it coming back.</p>
+  <div class="sel" id="caseSel"></div>
+  <div class="fc-wrap">
+    <div class="meta"><span id="csCount"></span><span id="csKnown"></span></div>
+    <div class="prog"><div id="csBar"></div></div>
+    <div class="flip" id="csFlip"><div class="flip-in">
+      <div class="face front"><div class="lab">Case · recall the principle</div><div class="txt" id="csFront"></div><div class="sub" style="font-size:12px;margin-top:14px">tap to flip</div></div>
+      <div class="face back"><div class="lab">Principle</div><div class="txt" id="csBack" style="font-size:15px"></div></div>
+    </div></div>
+    <div class="row"><button class="btn bad" id="csReview">↻ Review</button><button class="btn good" id="csGot">✓ Got it</button></div>
+    <div class="row"><button class="btn g" id="csShuffle">Shuffle &amp; restart</button><button class="btn g" id="csListBtn">☰ List all</button></div>
+  </div>
+  <div id="caseListWrap" style="display:none;margin-top:18px"></div>
+</section>
+
 <!-- QUIZ -->
 <section class="view" id="quiz">
   <h1>Quiz</h1><p class="sub">Real test format. Tap an answer for instant feedback.</p>
@@ -528,6 +546,61 @@ $('#fcGot').onclick=()=>{fcKnown++;fcIdx++;renderCard()};
 $('#fcReview').onclick=()=>{if(fcIdx<fcQueue.length)fcQueue.push(fcQueue[fcIdx]);fcIdx++;renderCard()};
 $('#fcShuffle').onclick=startCards;
 buildCardSel();startCards();
+// cases
+const CASES=[
+{c:"Salomon v Salomon",a:4,p:"A company is a separate legal entity, distinct from its controllers."},
+{c:"Macaura v Northern Assurance",a:4,p:"A company is separate from its members — the member had no insurable interest in the company's assets."},
+{c:"Lee v Lee's Air Farming",a:4,p:"A company is separate from its employee — one person can be both director and employee."},
+{c:"Gilford Motor Co v Horne",a:4,p:"Veil lifted where a company was used to avoid a contractual obligation."},
+{c:"Creasey v Breachwood Motors",a:4,p:"Veil lifted where a company was used to avoid a legal obligation."},
+{c:"Allen v Gold Reefs",a:5,p:"A constitution can only be amended bona fide for the benefit of the company as a whole."},
+{c:"Gambotto v WCP",a:5,p:"Expropriating a minority's shares/rights needs a proper purpose, fairness, and no oppression (also a Foss exception — members' property)."},
+{c:"Royal British Bank v Turquand",a:5,p:"Indoor management rule — outsiders may assume the company's internal procedures were properly followed."},
+{c:"Freeman and Lockyer v Buckhurst Park",a:5,p:"Implied actual authority — implied from a person's position or the board's acquiescence."},
+{c:"Crabtree-Vickers v Australian Direct Mail",a:5,p:"Apparent/ostensible authority — the company holding a person out as having authority."},
+{c:"Pacific Carriers v BNP Paribas",a:5,p:"Apparent authority — outsiders can rely on the appearance of authority the company creates."},
+{c:"Tesco v Nattrass",a:5,p:"Direct/organic liability — identify the company's 'directing mind and will'."},
+{c:"ABC Development Learning Centre v Wallace",a:5,p:"Vicarious liability — a company is liable for the acts of its employees."},
+{c:"Soyfer v Earlmaze / Sunburst v Agwater",a:5,p:"The s129 assumptions don't apply where the outsider knew or suspected they were incorrect (s128(4))."},
+{c:"Northside Developments v Registrar-General",a:5,p:"An outsider put on notice of an irregularity cannot rely on the statutory assumptions."},
+{c:"Trevor v Whitworth",a:5,p:"Capital maintenance — a company must maintain its issued share capital for creditors."},
+{c:"Sons of Gwalia v Margaretic",a:5,p:"Members' claims are postponed behind creditors (s563A)."},
+{c:"Parke v Daily News",a:6,p:"When solvent, directors act with reference to the shareholders' interests."},
+{c:"Kinsela v Russell Kinsela",a:6,p:"When insolvent, directors must consider creditors' interests; ratification is barred."},
+{c:"Cook v Deeks",a:6,p:"Diverting the company's business is a fraud on the minority; ratification fails; constructive trust imposed (also Foss exception — company's property)."},
+{c:"Angus Law Services v Carabelas",a:6,p:"Shareholders cannot ratify a breach of statutory duties."},
+{c:"Advance Bank v FAI",a:6,p:"Good faith has an objective element — what a rational director would consider in the company's best interests."},
+{c:"Howard Smith v Ampol",a:6,p:"Issuing new shares to dilute a majority and defeat a takeover is an improper purpose."},
+{c:"Ngurli v McCann",a:6,p:"Acting in self-interest is an improper use of directors' powers."},
+{c:"Furs v Tomkies",a:6,p:"Secret negotiations to the company's detriment breach the duty to avoid conflicts."},
+{c:"Queensland Mines v Hudson",a:6,p:"A corporate opportunity may be taken only with full disclosure to the board."},
+{c:"Regal (Hastings) v Gulliver",a:6,p:"Directors must not make a secret profit from their position, even in good faith."},
+{c:"Re City Equitable",a:7,p:"The old subjective standard of care (based on the director's own skill) — now obsolete."},
+{c:"Daniels v Anderson",a:7,p:"Objective standard of care; directors must understand their duty and know the business (AWA)."},
+{c:"ASIC v Healey",a:7,p:"Directors have an objective duty to read and understand the financial statements — not just rely on systems."},
+{c:"ASIC v Adler",a:7,p:"The Business Judgment Rule (s180(2)) failed — the director had a material personal interest; it doesn't cover failure to monitor."},
+{c:"Esanda Finance v Peat Marwick",a:7,p:"An auditor's duty of care to an outsider turns on 'proximity'."},
+{c:"Foss v Harbottle",a:9,p:"The company is the proper plaintiff for wrongs to it (proper plaintiff + internal management rules); main exception is fraud on the minority."},
+{c:"Wayde v NSW Rugby League",a:9,p:"Oppression (s232) — the reasonableness of the board's decision is a relevant factor."},
+{c:"Morgan v 45 Flers Avenue",a:9,p:"Restricting dividend payments was NOT oppression."},
+{c:"Sanford v Sanford Courier Service",a:9,p:"A minority was oppressed due to the self-interest of the majority/directors."},
+{c:"Scottish Co-operative v Meyer",a:9,p:"Diverting a business opportunity to another company was oppression of the minority."},
+{c:"R v Rivkin",a:10,p:"Insider trading — whether the person had information not generally available that would have a material effect on price."},
+{c:"ASIC v Plymin",a:12,p:"Insolvent trading; supports the s588H defence of reasonable reliance on a competent person."},
+{c:"Metropolitan Fire Systems v Miller",a:12,p:"s588H defence — reasonable grounds to expect solvency."}
+];
+let csArea='all',csQ=[],csI=0,csK=0,csT=0;
+function csFilt(){return CASES.filter(x=>csArea==='all'||x.a==csArea)}
+function buildCaseSel(){const areas=[...new Set(CASES.map(x=>x.a))].sort((a,b)=>a-b);$('#caseSel').innerHTML=`<span class="fchip ${csArea==='all'?'on':''}" data-a="all">All (${CASES.length})</span>`+areas.map(a=>`<span class="fchip ${csArea==a?'on':''}" data-a="${a}">A${a}</span>`).join('');$$('#caseSel .fchip').forEach(c=>c.onclick=()=>{csArea=c.dataset.a==='all'?'all':+c.dataset.a;buildCaseSel();startCases();renderCaseList()})}
+function startCases(){csQ=shuffle(csFilt());csT=csQ.length;csI=0;csK=0;renderCase()}
+function renderCase(){const f=$('#csFlip');f.classList.remove('flipped');if(csI>=csQ.length){$('#csFront').innerHTML='🎉 Done!';$('#csBack').innerHTML='Nice work.';$('#csCount').textContent=`${csT} done`;$('#csKnown').textContent=`${csK} got it`;$('#csBar').style.width='100%';return}const x=csQ[csI];$('#csFront').innerHTML='<i>'+x.c+'</i>';$('#csBack').innerHTML=x.p;$('#csCount').textContent=`Case ${csI+1} of ${csQ.length}`;$('#csKnown').textContent=`${csK} got it`;$('#csBar').style.width=(csI/csT*100)+'%'}
+$('#csFlip').onclick=()=>$('#csFlip').classList.toggle('flipped');
+$('#csGot').onclick=()=>{csK++;csI++;renderCase()};
+$('#csReview').onclick=()=>{if(csI<csQ.length)csQ.push(csQ[csI]);csI++;renderCase()};
+$('#csShuffle').onclick=startCases;
+function renderCaseList(){const wrap=$('#caseListWrap');wrap.innerHTML=`<table><tr><th>Case</th><th>Principle</th></tr>`+csFilt().sort((a,b)=>a.a-b.a||a.c.localeCompare(b.c)).map(x=>`<tr><td style="white-space:nowrap"><i>${x.c}</i><br><span class="pill" style="font-size:9px">A${x.a}</span></td><td>${x.p}</td></tr>`).join('')+`</table>`}
+$('#csListBtn').onclick=()=>{const wr=$('#caseListWrap');const show=wr.style.display==='none';wr.style.display=show?'block':'none';$('#csListBtn').textContent=show?'✕ Hide list':'☰ List all';if(show)renderCaseList()};
+buildCaseSel();startCases();
 // quiz
 let qzArea='all',qz=[],qi=0,qScore=0,qAnswered=0;
 function buildQuizSel(){$('#quizSel').innerHTML=`<span class="fchip ${qzArea==='all'?'on':''}" data-a="all">All</span>`+AREAS.map(a=>`<span class="fchip ${qzArea==a.n?'on':''}" data-a="${a.n}">A${a.n}</span>`).join('');$$('#quizSel .fchip').forEach(c=>c.onclick=()=>{qzArea=c.dataset.a==='all'?'all':+c.dataset.a;buildQuizSel();startQuiz()})}
